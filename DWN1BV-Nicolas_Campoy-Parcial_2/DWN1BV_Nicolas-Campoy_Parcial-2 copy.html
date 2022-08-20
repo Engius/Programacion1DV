@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro Salinas</title>
+</head>
+<body>
+    <script>
+
+        let empleados = 0;
+        let todosEmpleados = "";
+        let sumaAntiguedad = 0;
+        let ventaRealizada = 0;
+        let objetivoVentas = 0;
+
+        let areaS = 0;
+        let areaP = 0;
+        let areaC = 0;
+
+        let empleadosS = 0;
+        let empleadosP = 0;
+        let empleadosC = 0;
+
+
+
+            do {
+            let apellidoEmpleado = prompt("Apellido del empleado")
+
+            while (!isNaN(apellidoEmpleado )) {
+                apellidoEmpleado = prompt("Apellido del empleado, no ingrese numeros");
+            }
+
+            let divisionEmpleado = prompt("Ingrese el sector correspondiente al empleado")
+
+            while (divisionEmpleado !== "S" && divisionEmpleado !== "P" && divisionEmpleado !== "C" && divisionEmpleado !== "s" && divisionEmpleado !== "p" && divisionEmpleado !== "c") {
+                divisionEmpleado = prompt("Ingrese el sector divisiones validas son S P y C")
+            }
+
+            let antiguedad = parseInt(prompt("Ingrese la antiguedad"))
+
+            while (isNaN(antiguedad) || antiguedad <= 0) {
+                antiguedad = parseInt(prompt("Ingrese la antiguedad. Solo numeros y mayores a 0"))
+            }
+
+            switch (divisionEmpleado) {
+                case "S":
+                case "s":
+                    areaS+=antiguedad
+                    empleadosS++
+                    break;
+
+                case "p":
+                case "P":
+                    areaP+=antiguedad
+                    empleadosP++
+                    break;
+
+                default:
+                    areaC+=antiguedad
+                    empleadosC++
+                    break;
+            }
+
+            ventaRealizada = parseInt(prompt("Ingrese las ventas realizadas"))
+            while (ventaRealizada <= 0 || isNaN(ventaRealizada)) {
+                ventaRealizada = prompt("Ingrese las ventas realizadas. Deben ser numeros y mayores a 0");
+            }
+
+            if (ventaRealizada >= 70) {
+                    objetivoVentas ++
+                }
+
+            let porcentajeVentas = ((ventaRealizada*100)/70)
+
+            todosEmpleados += ("<li>Apellido: " + apellidoEmpleado + " Sector: " + divisionEmpleado + " Antiguedad: " + antiguedad + ". Ventas realizadas en porciento: " + porcentajeVentas + "</li>")
+            sumaAntiguedad += antiguedad
+            empleados++
+        } while (confirm("Queres agregar mas empleados?"));
+
+        const promedioObjetivo = ((objetivoVentas*100) / empleados)
+
+        const promedio = (sumaAntiguedad / empleados)
+        const promedioAntiguedadS = (areaS / empleadosS)
+        const promedioAntiguedadP = (areaP / empleadosP)
+        const promedioAntiguedadC = (areaC / empleadosC)
+
+        document.write("LISTA DE EMPLEADOS")
+        document.write("</br><ul>" + todosEmpleados + "</ul>")
+        document.write("</br>Promedio de antiguedad general en porcentaje: " + promedio)
+        document.write("</br>Total de Empleados: " + empleados)
+        document.write("</br>Empleados que cumplieron el objetivo " + promedioObjetivo)
+
+        document.write("</br>Hay " + empleadosS + " empleado/s en la division S. El promedio de la antiguedad es de: " + promedioAntiguedadS)
+        document.write("</br>Hay " + empleadosP + " empleado/s en la division S. El promedio de la antiguedad es de: " + promedioAntiguedadP)
+        document.write("</br>Hay " + empleadosC + " empleado/s en la division S. El promedio de la antiguedad es de: " + promedioAntiguedadC)
+
+    </script>
+</body>
+</html>

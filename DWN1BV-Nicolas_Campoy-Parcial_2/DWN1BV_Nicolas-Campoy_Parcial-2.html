@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <title>DWN1BV_Nicolas-Campoy_Parcial_2</title>
+</head>
+<body>
+    <script>
+
+        let cantidadEmpleados = 0;
+        let todosLosEmpleados = "";
+        let sumatoriaAntiguedad = 0;
+        let antiguedadS = 0;
+        let antiguedadP = 0;
+        let antiguedadC = 0;
+        let empleadosS = 0;
+        let empleadosP = 0;
+        let empleadosC = 0;
+        let ventasRealizadas = 0;
+        let objetivoVentas = 0;
+
+            do {
+            let apellidoEmpleado = prompt("Ingrese el apellido del empleado ")
+            let apellidoFixed = apellidoEmpleado.charAt(0).toUpperCase() + (apellidoEmpleado.slice(1)).toLowerCase()
+            while (!isNaN(apellidoEmpleado )) {
+                apellidoEmpleado = prompt("Ingrese el apellido del empleado, recurde que no deben ser numeros");
+            }
+
+            let divisionEmpleado = prompt("Ingrese el sector de: " + apellidoFixed).toUpperCase()
+            while (divisionEmpleado !== "S" && divisionEmpleado !== "P" && divisionEmpleado !== "C") {
+                divisionEmpleado = prompt("Ingrese el sector de: " + apellidoFixed + " recuerde que las divisiones validas son \"S\" para Seguros, \"P\" para Prestamos o \"C\" para Creditos").toUpperCase()
+            }
+
+            let antiguedad = parseInt(prompt("Ingrese la antiguedad: " + apellidoFixed))
+            while (isNaN(antiguedad) || antiguedad <= 0) {
+                antiguedad = parseInt(prompt("Ingrese la antiguedad: " + apellidoFixed + ". Recuerde que deben ser numeros mayores a 0 y no pueden ser letras."))
+            }
+
+            if (divisionEmpleado === "S") {
+                antiguedadS += antiguedad
+                empleadosS++
+            } else if (divisionEmpleado === "P") {
+                antiguedadP += antiguedad
+                empleadosP++
+            } else {
+                antiguedadC += antiguedad
+                empleadosC++
+            }
+
+            ventasRealizadas = parseInt(prompt("Ingrese las ventas realizadas por el empleado"))
+            while (ventasRealizadas <= 0 || isNaN(ventasRealizadas)) {
+                ventasRealizadas = prompt("Ingrese las ventas realizadas por el empleado, recurde que deben ser numeros y mayor a 0");
+            }
+
+            if (ventasRealizadas >= 70) {
+                    objetivoVentas ++
+                }
+
+            let porcentajeVentas = ((ventasRealizadas*100)/70).toFixed(0)
+
+            todosLosEmpleados += ("<li>Apellido: " + apellidoFixed + "-- Sector: \"" + divisionEmpleado + "\"-- Antiguedad: " + antiguedad + ".  Obejtivo de ventas realizadas: " + porcentajeVentas + "%</li>")
+            sumatoriaAntiguedad += antiguedad
+            cantidadEmpleados++
+        } while (confirm("Desea agregar mas empleados?"));
+
+        const promedio = (sumatoriaAntiguedad / cantidadEmpleados)
+        const promedioS = (antiguedadS / empleadosS)
+        const promedioP = (antiguedadP / empleadosP)
+        const promedioC = (antiguedadC / empleadosC)
+        const promedioObjetivo = ((objetivoVentas*100) / cantidadEmpleados)
+        document.write("<h1> LISTA DE EMPLEADOS </h1></br>")
+        document.write("</br><h2><ul>" + todosLosEmpleados + "</ul></h2>")
+        document.write("<h3>Promedio de antiguedad (con 2 decimales): " + promedio.toFixed(2) + "</h3>")
+        document.write("<h2 class=empleados>Total de Empleados: " + cantidadEmpleados + "</h2>")
+        document.write("<h3 class=nomina>Nomina total que ha cumplido objetivo " + promedioObjetivo.toFixed(0) + "%</h3>")
+        totalEmpleados(empleadosS, promedioS, "S")
+        totalEmpleados(empleadosP, promedioP, "P")
+        totalEmpleados(empleadosC, promedioC, "C")
+
+        function totalEmpleados(empleados, antiguedad, division) {
+            if (empleados < 1) {
+                document.write("<h3><span class= red>No hay empleados cargados en la division \"" + division + "\"</span></h3>")
+            } else {
+                if (empleados < 2) {
+                    document.write("<h3>Solo se encuentra 1 empleado en la division:  \"" + division + "\". Su antiguedad es de: " + antiguedad + " años</h3>")
+                } else {
+                    document.write("<h3>Existe un total de " + empleados + " empleados en la division \"" + division + "\". El promedio de la antiguedad es de: " + antiguedad + " años</h3>")
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
